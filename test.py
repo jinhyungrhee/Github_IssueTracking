@@ -8,33 +8,33 @@ class Heap:  # max_heap
         return str(self.A)
 
     def heapify_down(self, k, n):
-        while n > 2*k + 1:  # 자식 노드가 있는가?
+        while n > 2*k + 1:
             L, R = 2*k + 1, 2*k + 2
-            m = k  # m = (A[k], A[L], A[R])중 큰 값을 가지는 index
+            m = k 
             if self.A[k] < self.A[L]:
                 m = L
             if n > R:
                 if self.A[m] < self.A[R]:
                     m = R
-            if k == m:  # 내가 가장 큰 값인 경우
+            if k == m:
                 break
             else:
                 self.A[k], self.A[m] = self.A[m], self.A[k]
                 k = m
 
-    def make_heap(self):  # 차례대로 모든 애들에 대해서 heapify_down 적용(마지막에 있는 노드부터 역순으로)
+    def make_heap(self):
         n = (len(self.A))
-        for k in range(n - 1, -1, -1):  # n-1(마지막 인덱스)부터 0(root)까지 뒤에서부터 하나씩
+        for k in range(n - 1, -1, -1):
             self.heapify_down(k, n)
 
-    def heap_sort(self):  # heap을 사용한 정렬
+    def heap_sort(self):
         n = len(self.A)
         for k in range(len(self.A) - 1, -1, -1):
-            self.A[0], self.A[k] = self.A[k], self.A[0]  # 첫 인덱스와 마지막 인덱스를 교환
-            n = n - 1  # A[n-1]은 정렬되었으므로 (큰 수들을 하나씩 제외시키는 것)
+            self.A[0], self.A[k] = self.A[k], self.A[0] 
+            n = n - 1 
             self.heapify_down(0, n)
 
-    def heapify_up(self, k):  # 올라가면서 A[k]를 재배치
+    def heapify_up(self, k):
         while k > 0 and self.A[(k - 1) // 2] < self.A[k]:
             self.A[k], self.A[(k - 1) // 2] = self.A[(k - 1) // 2], self.A[k]
             k = (k - 1) // 2
